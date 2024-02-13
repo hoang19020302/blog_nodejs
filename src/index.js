@@ -25,11 +25,11 @@ app.engine(
 );
 app.set('view engine', 'hbs');
 
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views', path.join(__dirname, 'resources/views'))
 
 // Router init - định tuyến
-route(app);
+route(app)
 
-      app.listen(port, 'localhost', () => {
-    console.log(`Server is listening at http://localhost:${port}`);
+            app.listen(port, 'localhost', () => {
+          console.log(`Server is listening at http://localhost:${port}`);
 });
