@@ -30,6 +30,6 @@ app.set('views', path.join(__dirname, 'resources/views'))
 // Router init - định tuyến
 route(app)
 
-           app.listen(port, 'localhost', () => {
+   app.listen(port, 'localhost', () => {
           console.log(`Server is listening at http://localhost:${port}`);
 });
