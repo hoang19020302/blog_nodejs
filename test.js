@@ -1,8 +1,3 @@
-for (var i = 0; i < 5; i++){
-    
-    setTimeout(function(){
-        console.log(i)
-    }, 1000)
+for (let i = 0; i < 10; i++) {
+    console.log('hello' + i)
 }
-
-console.log(i)
