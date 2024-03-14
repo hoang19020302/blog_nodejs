@@ -6,6 +6,8 @@ const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
 
+const SortMiddleware = require('./app/middlewares/SortMiddleware')
+
 const route = require('./routes');
 const db = require('./config/db');
 
@@ -14,6 +16,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // override with the X-HTTP-Method-Override header in the request
 app.use(methodOverride('_method'));
+
+// Custom middleware
+app.use(SortMiddleware);
 
 // Middleware - Form data
 app.use(express.urlencoded({ extended: true }));
@@ -28,9 +33,7 @@ app.engine(
     engine({
         extname: '.hbs',
         defaultLayout: 'main',
-        helpers: {
-            sum(a, b) { return a + b; },
-        },
+        helpers: require('./helpers/handlebars'),
     }),
 );
 app.set('view engine', 'hbs');
