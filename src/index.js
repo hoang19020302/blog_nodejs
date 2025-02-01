@@ -6,7 +6,7 @@ const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
 
-const SortMiddleware = require('./app/middlewares/SortMiddleware')
+const SortMiddleware = require('./app/middlewares/SortMiddleware');
 
 const route = require('./routes');
 const db = require('./config/db');
@@ -39,7 +39,7 @@ app.engine(
 app.set('view engine', 'hbs');
 
 app.set('views', path.join(__dirname, 'resources', 'views'));
-console.log('Path:', path.join(__dirname))
+console.log('Path:', path.join(__dirname));
 
 // Router init - định tuyến
 route(app);

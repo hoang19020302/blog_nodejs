@@ -5,18 +5,21 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const Schema = mongoose.Schema;
 
-const CourseSchema = new Schema({
-    _id: { type: Number, },
-    name: { type: String, required: true, default: '' },
-    description: { type: String, maxLength: 600, default: '' },
-    image: { type: String, default: '' },
-    videoId: { type: String, required: true, default: '' },
-    level: { type: String, default: '' },
-    slug: { type: String, slug: 'name', unique: true },
-}, {
-    _id: false,
-    timestamps: true,
-});
+const CourseSchema = new Schema(
+    {
+        _id: { type: Number },
+        name: { type: String, required: true, default: '' },
+        description: { type: String, maxLength: 600, default: '' },
+        image: { type: String, default: '' },
+        videoId: { type: String, required: true, default: '' },
+        level: { type: String, default: '' },
+        slug: { type: String, slug: 'name', unique: true },
+    },
+    {
+        _id: false,
+        timestamps: true,
+    },
+);
 
 // Custom query helper
 CourseSchema.query.sortable = function (req) {
@@ -25,12 +28,12 @@ CourseSchema.query.sortable = function (req) {
         return this.sort({ [req.query.column]: isValidType ? req.query.type : 'asc' });
     }
     return this;
-}
+};
 
 // Add plugin
 mongoose.plugin(slug);
 CourseSchema.plugin(AutoIncrement, { start_seq: 0 });
-CourseSchema.plugin(mongooseDelete, { 
+CourseSchema.plugin(mongooseDelete, {
     deletedAt: true,
     overrideMethods: 'all',
 });

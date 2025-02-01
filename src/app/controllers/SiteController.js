@@ -9,9 +9,9 @@ class SiteController {
     //[GET] /search
     search(req, res, next) {
         Course.find({})
-            .then(courses => {
-                res.render('search', { 
-                    courses : mutipleMongooseToObject(courses),
+            .then((courses) => {
+                res.render('search', {
+                    courses: mutipleMongooseToObject(courses),
                 });
             })
             .catch(next);

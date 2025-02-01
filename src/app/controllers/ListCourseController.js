@@ -5,9 +5,9 @@ class ListCourseController {
     //[GET] /courses
     index(req, res, next) {
         Course.find({})
-            .then(courses => {
-                res.render('list_course', { 
-                    courses : mutipleMongooseToObject(courses),
+            .then((courses) => {
+                res.render('list_course', {
+                    courses: mutipleMongooseToObject(courses),
                 });
             })
             .catch(next);

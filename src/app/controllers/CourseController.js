@@ -5,8 +5,8 @@ class CourseController {
     //[GET] /courses/:slug
     show(req, res, next) {
         Course.findOne({ slug: req.params.slug })
-            .then(course => {
-                res.render('courses/show', { 
+            .then((course) => {
+                res.render('courses/show', {
                     course: mongooseToObject(course),
                 });
             })
@@ -23,21 +23,22 @@ class CourseController {
         //res.json(req.body)
         req.body.image = `https://img.youtube.com/vi/${req.body.videoId}/sddefault.jpg`;
         const course = new Course(req.body);
-        course.save()
+        course
+            .save()
             .then(() => res.redirect('/me/stored/courses'))
             .catch(next);
     }
 
     // [GET] /courses/:id/edit
     edit(req, res, next) {
-        Course.findOne({ _id: req.params._id})
-            .then(course => {
+        Course.findOne({ _id: req.params._id })
+            .then((course) => {
                 res.render('courses/edit', {
                     course: mongooseToObject(course),
-                })
+                });
             })
             .catch(next);
-            //console.log(req.params)
+        //console.log(req.params)
     }
 
     // [PUT] /courses/:_id
@@ -54,21 +55,21 @@ class CourseController {
         Course.delete({ _id: req.params._id })
             .then(() => res.redirect('back'))
             .catch(next);
-            //console.log(req.params)
+        //console.log(req.params)
     }
     // [PATCH] /course/:_id/restore
     restore(req, res, next) {
         Course.restore({ _id: req.params._id })
             .then(() => res.redirect('back'))
             .catch(next);
-            //console.log(req.params);
+        //console.log(req.params);
     }
     // forever [DELETE] /course/:_id/force
     forceDestroy(req, res, next) {
         Course.deleteOne({ _id: req.params._id })
             .then(() => res.redirect('back'))
             .catch(next);
-            //console.log(req.params);
+        //console.log(req.params);
     }
 
     // [POST] /courses/handle-form-action
