@@ -8,6 +8,12 @@ pipeline {
     }
 
     stages {
+        stage('Test Docker') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 git url: 'git@github.com:hoang19020302/blog_nodejs.git',
@@ -16,11 +22,22 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Check folder') {
             steps {
                 script {
-                    sh 'docker build -t $IMAGE_NAME .'
+                    sh 'pwd && ls -la'
                 }
+            }
+        }
+
+
+        stage('Build Docker Image') {
+            steps {
+                dir('blog_nodejs') {
+                   script {
+                       sh 'docker build -t $IMAGE_NAME .'
+                   }
+            }
             }
         }
 
@@ -34,8 +51,10 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                script {
-                    sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME'
+                dir('blog_nodejs') {
+                    script {
+                        sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME'
+                    }
                 }
             }
         }
