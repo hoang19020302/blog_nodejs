@@ -8,7 +8,7 @@ WORKDIR /app
 # Chỉ copy file cần thiết để cài thư viện
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --omit=dev
 
 # Copy phần còn lại của app
 COPY . .
@@ -17,5 +17,5 @@ COPY . .
 EXPOSE 3000
 
 # Start app (có thể thay bằng npm start nếu bạn dùng scripts)
-CMD ["npm", "start"]
+CMD ["node", "src/index.js"]
 
