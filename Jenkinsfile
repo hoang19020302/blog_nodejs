@@ -32,9 +32,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                dir('blog_nodejs') {
-                    sh 'docker build -t $IMAGE_NAME .'
-                }
+                 sh 'docker build -t $IMAGE_NAME .'
             }
         }
 
@@ -48,9 +46,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                dir('blog_nodejs') {
-                    sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME'
-                }
+                sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME'
             }
         }
     }
