@@ -10,7 +10,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'git@github.com:hoang19020302/blog_nodejs.git', credentialsId: '207b8006-773e-418f-a697-0e621b968be2'
+                git url: 'git@github.com:hoang19020302/blog_nodejs.git',
+                branch: 'main',
+                credentialsId: '207b8006-773e-418f-a697-0e621b968be2'
             }
         }
 
