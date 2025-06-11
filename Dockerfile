@@ -1,15 +1,21 @@
 FROM node:20-alpine
 
-# Thư mục làm việc trong container
+# Thiết lập biến môi trường
+ENV NODE_ENV=production
+
 WORKDIR /app
 
-# Copy package.json và cài thư viện
+# Chỉ copy file cần thiết để cài thư viện
 COPY package*.json ./
+
 RUN npm install
 
-# Copy toàn bộ mã nguồn
+# Copy phần còn lại của app
 COPY . .
 
-# Chạy ứng dụng
+# Expose cổng ứng dụng
 EXPOSE 3000
-CMD ["node", "src/index.js"]
+
+# Start app (có thể thay bằng npm start nếu bạn dùng scripts)
+CMD ["npm", "start"]
+

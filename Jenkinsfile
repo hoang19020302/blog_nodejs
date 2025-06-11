@@ -4,16 +4,11 @@ pipeline {
     environment {
         IMAGE_NAME = "blog_nodejs_image"
         CONTAINER_NAME = "blog_nodejs_container"
+        IMAGE_TAG = "${BUILD_NUMBER}"
         PORT = "3000"
     }
 
     stages {
-        stage('Test Docker') {
-            steps {
-                sh 'docker --version'
-            }
-        }
-
         stage('Checkout') {
             steps {
                 git url: 'git@github.com:hoang19020302/blog_nodejs.git',
@@ -22,17 +17,10 @@ pipeline {
             }
         }
 
-        stage('Check folder') {
-            steps {
-                script {
-                    sh 'pwd && ls -la'
-                }
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                 sh 'docker build -t $IMAGE_NAME .'
+                 sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+                 sh 'docker tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:latest'
             }
         }
 
@@ -46,17 +34,24 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME'
+                sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME:$IMAGE_TAG'
+                sh 'docker ps -a'
+            }
+        }
+
+        stage('Cleanup Dangling Images') {
+            steps {
+                sh 'docker image prune -f'
             }
         }
     }
 
     post {
         success {
-            echo "✅ Deployment successful!"
+            echo "✅ Deployment successful! 🚀"
         }
         failure {
-            echo "❌ Deployment failed!"
+            echo "❌ Deployment failed! 🔥"
         }
     }
 }
