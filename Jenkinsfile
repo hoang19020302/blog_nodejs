@@ -36,7 +36,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                //sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME:$IMAGE_TAG'
+                sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME:$IMAGE_TAG'
                 sh 'docker ps -a'
             }
         }
