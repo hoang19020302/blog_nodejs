@@ -10,16 +10,7 @@ pipeline {
         PORT = "3000"
     }
 
-    stages {
-        stage('Prepare SSH') {
-            steps {
-                sh '''
-                    mkdir -p ~/.ssh
-                    ssh-keyscan github.com >> ~/.ssh/known_hosts
-                '''
-            }
-        }
-  
+    stages {  
         stage('Checkout') {
             steps {
                 git url: 'git@github.com:hoang19020302/blog_nodejs.git',
