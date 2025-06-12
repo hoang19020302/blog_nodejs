@@ -11,6 +11,15 @@ pipeline {
     }
 
     stages {
+        stage('Prepare SSH') {
+            steps {
+                sh '''
+                    mkdir -p ~/.ssh
+                    ssh-keyscan github.com >> ~/.ssh/known_hosts
+                '''
+            }
+        }
+  
         stage('Checkout') {
             steps {
                 git url: 'git@github.com:hoang19020302/blog_nodejs.git',
@@ -36,7 +45,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME:$IMAGE_TAG'
+                //sh 'docker run -d --name $CONTAINER_NAME -p $PORT:3000 $IMAGE_NAME:$IMAGE_TAG'
                 sh 'docker ps -a'
             }
         }
@@ -44,6 +53,14 @@ pipeline {
         stage('Cleanup Dangling Images') {
             steps {
                 sh 'docker image prune -f'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Hello from Jenkins agent!'
+                sh 'whoami'
+                sh 'uname -a'
             }
         }
     }
