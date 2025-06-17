@@ -49,7 +49,7 @@ pipeline {
         
         stage('Test') {
             steps {
-                echo 'Hello from Jenkins agent!'
+                echo 'Hello from Jenkins agent!!'
                 sh 'whoami'
                 sh 'uname -a'
             }
