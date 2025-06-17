@@ -19,6 +19,14 @@ pipeline {
             }
         }
 
+        stage('Test User') {
+           steps {
+               sh 'whoami'
+               sh 'id'
+               sh 'groups'
+           }
+        }
+
         stage('Build Docker Image') {
             steps {
                  sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
