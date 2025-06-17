@@ -22,7 +22,7 @@ pipeline {
         stage('Debug Info') {
             steps {
                 sh 'whoami'
-                sh 'ls -l /var/run/docker.sock || echo "No docker.sock found."'
+                sh 'ls -l /var/run/docker.sock || echo "No docker.sock found"'
                 sh 'stat /var/run/docker.sock'
             }
         }
