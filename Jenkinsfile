@@ -19,14 +19,6 @@ pipeline {
             }
         }
 
-        stage('Debug Info') {
-            steps {
-                sh 'whoami'
-                sh 'ls -l /var/run/docker.sock || echo "No docker.sock found."'
-                sh 'stat /var/run/docker.sock'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                  sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
