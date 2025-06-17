@@ -60,14 +60,14 @@ pipeline {
         success {
             slackSend (
                 channel: '#ci-notifications',
-                message: "✅ Build *${env.JOB_NAME}* #${env.BUILD_NUMBER} succeeded",
+                message: "✅ Build *${env.JOB_NAME}* #${env.BUILD_NUMBER} succeeded!",
                 color: 'good'
             )
         }
         failure {
             slackSend (
                 channel: '#ci-notifications',
-                message: "❌ Build *${env.JOB_NAME}* #${env.BUILD_NUMBER} failed",
+                message: "❌ Build *${env.JOB_NAME}* #${env.BUILD_NUMBER} failed!",
                 color: 'danger'
             )
         }
